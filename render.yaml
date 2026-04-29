@@ -15,8 +15,6 @@ services:
         value: production
       - key: DATABASE_URL
         sync: false
-      - key: PORT
-        sync: false
       - key: FRONTEND_URL
         value: http://localhost:5173
       - key: JWT_ACCESS_SECRET
