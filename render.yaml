@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: grocery-commerce-api
+    runtime: node
+    plan: free
+    rootDir: backend
+    # Uses db push because this repo may not contain committed Prisma migrations.
+    # For first-time free-tier setup this is the most reliable approach.
+    buildCommand: npm install && npm run prisma:generate && npx prisma db push --accept-data-loss && npm run prisma:seed
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: PORT
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
+      - key: JWT_ACCESS_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: SENTRY_DSN
+        sync: false
